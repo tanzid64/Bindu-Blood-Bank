@@ -1,7 +1,7 @@
 from rest_framework import generics, status, viewsets
 from account.models import User
 from rest_framework.response import Response
-from account.constants import send_user_email
+from account.utils import generate_otp, send_template_email
 from account.serializers import UserRegistrationSerializer, UserSerializer
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -11,13 +11,16 @@ from django.utils.http import urlsafe_base64_decode
 class UserRegistrationView(generics.CreateAPIView):
     serializer_class = UserRegistrationSerializer
     def perform_create(self, serializer):
-        user = serializer.save()
-        user.is_active=False
-        user.save()
-        token = default_token_generator.make_token(user)
-        uid = urlsafe_base64_encode(force_bytes(user.pk))
-        confirm_link = f"http://localhost:8000/api/account/active/{uid}/{token}"
-        send_user_email('Account Confirmation Email', confirm_link, 'confirm_email.html', user)
+        user = serializer.save(is_active=False)
+        otp = generate_otp(user)
+        send_template_email(
+            subject="Active your email on Bindu",
+            templateName="confirm_email.html", 
+            toEmail=user.email, 
+            context={"fullName":user.username,
+                "otp": otp}
+                )
+        return user
 
 class VerifyEmailView(generics.GenericAPIView):
     def get(self, request, uid64, token):
