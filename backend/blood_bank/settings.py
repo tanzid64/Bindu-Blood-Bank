@@ -69,14 +69,27 @@ WSGI_APPLICATION = 'blood_bank.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+# SQLite Database
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+"""
+# Supabase Database Setup
+DATABASES = {
+    'default': {
+        'ENGINE': "django.db.backends.postgresql_psycopg2",
+        'HOST': env("DB_HOST"),
+        'NAME': env("DB_NAME"),
+        'USER': env("DB_USER") ,
+        'PASSWORD': env("DB_PASSWORD"),
+        'PORT': "5432",
 
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

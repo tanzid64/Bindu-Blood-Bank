@@ -1,10 +1,11 @@
 from django.urls import path,include
-from account.views import UserRegistrationView, VerifyEmailView, UserViewSet
+from account.views import UserRegistrationView, VerifyEmailView, UserViewSet,SendOtpView
 from rest_framework import routers
 router = routers.DefaultRouter()
 router.register('',UserViewSet,basename="account-api")
 urlpatterns = [
-    # path('', include(router.urls)),
+    path('profile/', include(router.urls)),
     path('register/',UserRegistrationView.as_view(), name='register-api'),
-    path('active/<str:uid64>/<str:token>/', VerifyEmailView.as_view(), name='email-verification'),
+    path('verify-email/', VerifyEmailView.as_view(), name="verify-email-api"),
+    path('otp/request/',SendOtpView.as_view, name="send-otp-api"),
 ]

@@ -22,6 +22,9 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         representation['message'] = 'Account registration successfull. Please confirm your email to login.'
         return representation
+
+class SendOtpSerializer(serializers.Serializer):
+    email = serializers.EmailField(max_length=255, min_length=6)
     
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
