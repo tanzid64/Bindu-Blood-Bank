@@ -1,3 +1,4 @@
+from urllib import response
 from rest_framework import generics, status, viewsets
 from account.models import User, OneTimePassword
 from rest_framework.response import Response
@@ -11,17 +12,25 @@ from rest_framework.exceptions import MethodNotAllowed
 # Create your views here.
 class UserRegistrationView(generics.CreateAPIView):
     serializer_class = UserRegistrationSerializer
-    def perform_create(self, serializer):
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
         user = serializer.save(is_active=False)
         otp = generate_otp(user)
         send_template_email(
-            subject="Active your email on Bindu",
-            templateName="confirm_email.html", 
-            toEmail=user.email, 
-            context={"fullName":user.username,
-                "otp": otp}
-                )
-        return user
+            subject="Activate your email on Bindu",
+            templateName="confirm_email.html",
+            toEmail=user.email,
+            context={"fullName": user.username, "otp": otp}
+        )
+        return Response(
+            {
+                "user": serializer.data,
+                "message": "Account creation successful. Please check your email to verify."
+            },
+            status=status.HTTP_201_CREATED
+        )
 
 class SendOtpView(generics.GenericAPIView):
     serializer_class = SendOtpSerializer
