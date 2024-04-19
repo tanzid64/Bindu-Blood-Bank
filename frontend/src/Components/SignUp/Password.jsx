@@ -7,7 +7,7 @@ const Password = ({ID,Name,Value, error}) => {
         <Label htmlFor={ID} value={Value} />
       </div>
       <TextInput id={ID} name={Name} type="password" shadow />
-      <p class="text-red-600 text-sm italic pt-2">{error}</p>
+      <p className="text-red-600 text-sm italic pt-2">{error}</p>
     </div>
   );
 };

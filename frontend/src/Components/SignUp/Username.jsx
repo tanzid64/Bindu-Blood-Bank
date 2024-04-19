@@ -7,7 +7,7 @@ const Username = ({error}) => {
         <Label htmlFor="username" value="Username" />
       </div>
       <TextInput id="username" type="text" name="username" shadow />
-      <p class="text-red-600 text-sm italic pt-2">{error}</p>
+      <p className="text-red-600 text-sm italic pt-2">{error}</p>
     </div>
   );
 };

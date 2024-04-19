@@ -3,16 +3,15 @@
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import Dark from "./Dark";
 import logo from "/images/logo.png";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function Nav() {
+  const [isActive, setIsActive] = useState("home");
   return (
-    <Navbar fluid >
-      <Navbar.Brand href="" >
-        <img
-          src={logo}
-          className="mr-2 h-6"
-          alt="Bindu Blood Bank Logo"
-        />
+    <Navbar fluid>
+      <Navbar.Brand as={Link} to="/">
+        <img src={logo} className="mr-2 h-6" alt="Bindu Blood Bank Logo" />
         <span className="self-center whitespace-nowrap text-m font-semibold dark:text-white">
           Bindu Blood Bank
         </span>
@@ -46,14 +45,55 @@ export default function Nav() {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <Navbar.Link href="#" active>
+        <Navbar.Link
+          as={Link}
+          to="/"
+          onClick={() => setIsActive("home")}
+          active={isActive === "home"}
+        >
           Home
         </Navbar.Link>
-        <Navbar.Link href="#">User-Guide</Navbar.Link>
-        <Navbar.Link href="#">Donors</Navbar.Link>
-        <Navbar.Link href="#">Services</Navbar.Link>
-        <Navbar.Link href="#">Contact</Navbar.Link>
-        <Navbar.Link href="#">About</Navbar.Link>
+
+        <Navbar.Link
+          as={Link}
+          to="/"
+          onClick={() => setIsActive("userGuide")}
+          active={isActive === "userGuide"}
+        >
+          User-Guide
+        </Navbar.Link>
+        <Navbar.Link
+          as={Link}
+          to="/"
+          onClick={() => setIsActive("donors")}
+          active={isActive === "donors"}
+        >
+          Donors
+        </Navbar.Link>
+        <Navbar.Link
+          as={Link}
+          to="/"
+          onClick={() => setIsActive("services")}
+          active={isActive === "services"}
+        >
+          Services
+        </Navbar.Link>
+        <Navbar.Link
+          as={Link}
+          to="/"
+          onClick={() => setIsActive("contact")}
+          active={isActive === "contact"}
+        >
+          Contact
+        </Navbar.Link>
+        <Navbar.Link
+          as={Link}
+          to="/about"
+          onClick={() => setIsActive("about")}
+          active={isActive === "about"}
+        >
+          About
+        </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );

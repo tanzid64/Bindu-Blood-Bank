@@ -13,7 +13,7 @@ const Email = ({error}) => {
         placeholder="name@bindu.com"
         shadow
       />
-      <p class="text-red-600 text-sm italic pt-2">{error}</p>
+      <p className="text-red-600 text-sm italic pt-2">{error}</p>
     </div>
   );
 };

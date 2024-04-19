@@ -11,7 +11,7 @@ import {
 
 export default function MainFooter() {
   return (
-    <Footer >
+    <Footer className="rounded-none">
       <div className="w-full">
         <div className="grid w-full grid-cols-2 gap-8 px-6 py-8 md:grid-cols-4">
           <div>
@@ -50,7 +50,11 @@ export default function MainFooter() {
           </div>
         </div>
         <div className="w-full dark:bg-gray-700 px-4 py-6 sm:flex sm:items-center sm:justify-between">
-          <Footer.Copyright href="#" by="Bindu™" year={2022} />
+          <Footer.Copyright
+            href="#"
+            by="Bindu™"
+            year={new Date().getFullYear()}
+          />
           <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
             <Footer.Icon href="#" icon={BsFacebook} />
             <Footer.Icon href="#" icon={BsInstagram} />
