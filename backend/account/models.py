@@ -5,7 +5,7 @@ from .managers import UserManager
 from .constants import GENDER_TYPE, BLOOD_TYPE
 # Create your models here.
 class User(TimeStampMixin, AbstractUser):
-    image = models.ImageField(upload_to='account/images/')
+    image = models.ImageField(upload_to='profile_pictures')
     phone = models.CharField(max_length=15)
     balance = models.DecimalField(decimal_places=2, max_digits=12, default=0)
     email = models.EmailField(unique=True)

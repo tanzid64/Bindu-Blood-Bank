@@ -88,8 +88,9 @@ class VerifyEmailView(generics.GenericAPIView):
             )
 
         
-class UserViewSet(viewsets.ModelViewSet):
+class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    lookup_field = 'username'
     def create(self, request, *args, **kwargs):
         raise MethodNotAllowed("POST")

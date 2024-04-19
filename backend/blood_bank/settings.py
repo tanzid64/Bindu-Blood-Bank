@@ -31,6 +31,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Rest Framework
     'rest_framework',
+    # cloudinary
+    # 'images.apps.ImagesConfig',
+    'cloudinary_storage',
+    'cloudinary',
     # Custom apps
     'core',
     'account',
@@ -126,11 +130,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
-MEDIA_URLS ='/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Email Setting
@@ -140,3 +139,12 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+
+# Setup Cloudnary cloud as file storage
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env("CLOUDINARY_CLOUD_NAME"),
+    'API_KEY': env("CLOUDINARY_API_KEY"),
+    'API_SECRET': env("CLOUDINARY_API_SECRET"),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
