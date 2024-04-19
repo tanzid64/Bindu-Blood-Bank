@@ -64,7 +64,7 @@ export default function Nav() {
         </Navbar.Link>
         <Navbar.Link
           as={Link}
-          to="/"
+          to="/donors"
           onClick={() => setIsActive("donors")}
           active={isActive === "donors"}
         >

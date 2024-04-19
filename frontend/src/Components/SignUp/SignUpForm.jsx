@@ -13,7 +13,6 @@ import { toast } from "react-toastify";
 
 export default function SignUpForm() {
   const [error, setError] = useState({});
-  const [success, setSuccess] = useState({});
   const [registerUser, { isLoading }] = useRegisterUserMutation();
   const handleSubmit = async (e) => {
     e.preventDefault();

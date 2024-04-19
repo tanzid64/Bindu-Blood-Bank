@@ -1,4 +1,3 @@
-
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const userAuthApi = createApi({
@@ -20,6 +19,7 @@ export const userAuthApi = createApi({
         };
       },
     }),
+   
   }),
 });
 

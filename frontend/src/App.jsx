@@ -6,6 +6,7 @@ import MainFooter from "./Components/MainFooter";
 import Nav from "./Components/Nav";
 import SignUpForm from "./Components/SignUp/SignUpForm";
 import Home from "./pages/Home";
+import Donors from "./pages/Donors";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<SignUpForm />} />
             <Route path="/about" element={<About />} />
+            <Route path="/donors" element={<Donors />} />
           </Routes>
         </main>
         <MainFooter />
