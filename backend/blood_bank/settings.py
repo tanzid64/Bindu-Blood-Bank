@@ -24,12 +24,16 @@ AUTH_USER_MODEL = 'account.User'
 
 INSTALLED_APPS = [
     "corsheaders",
+    'jet.dashboard',
+    'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Custom Admin Panel (Django JET)
+    # 'jet_django',
     # Rest Framework
     'rest_framework',
     'drf_yasg',
@@ -63,6 +67,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.request',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
