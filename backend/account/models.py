@@ -2,6 +2,7 @@ from django.db import models
 from core.models import TimeStampMixin
 from django.contrib.auth.models import AbstractUser
 from .managers import UserManager
+from rest_framework_simplejwt.tokens import RefreshToken
 from .constants import GENDER_TYPE, BLOOD_TYPE
 # Create your models here.
 class User(TimeStampMixin, AbstractUser):
@@ -22,7 +23,12 @@ class User(TimeStampMixin, AbstractUser):
 
     def __str__(self) -> str:
         return f"{self.username}"
-    
+    def tokens(self):
+        refresh = RefreshToken.for_user(self)
+        return {
+        'refresh': str(refresh),
+        'access': str(refresh.access_token)
+        }
 
 
 class OneTimePassword(models.Model):

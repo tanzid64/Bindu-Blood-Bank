@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 import environ
@@ -31,8 +32,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Rest Framework
     'rest_framework',
+    'django_filters',
+    'rest_framework_simplejwt.token_blacklist',
     # cloudinary
-    # 'images.apps.ImagesConfig',
     'cloudinary_storage',
     'cloudinary',
     # Custom apps
@@ -70,17 +72,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'blood_bank.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-# SQLite Database
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 # Supabase Database Setup
 DATABASES = {
@@ -148,3 +139,18 @@ CLOUDINARY_STORAGE = {
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# Rest Framework settings
+REST_FRAMEWORK = {
+  # Authentication setting
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+# Simple JWT setting
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}

@@ -1,14 +1,12 @@
-from urllib import response
-from rest_framework import generics, status, viewsets
+from rest_framework.filters import SearchFilter
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import generics, status, viewsets, permissions
 from account.models import User, OneTimePassword
 from rest_framework.response import Response
 from account.utils import generate_otp, send_template_email, delete_instance_after
-from account.serializers import UserRegistrationSerializer, UserSerializer,SendOtpSerializer
-from django.contrib.auth.tokens import default_token_generator
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_decode
 from rest_framework.exceptions import MethodNotAllowed
+
+from account.serializers import UserRegistrationSerializer, UserSerializer,SendOtpSerializer,UserLoginSerializer, LogoutUserSerializer
 # Create your views here.
 class UserRegistrationView(generics.CreateAPIView):
     serializer_class = UserRegistrationSerializer
@@ -92,5 +90,25 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'username'
+    filterset_fields = ['is_available', 'blood_group']
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    search_fields = ['username', 'email']
     def create(self, request, *args, **kwargs):
         raise MethodNotAllowed("POST")
+    
+class LoginUserView(generics.GenericAPIView):
+    serializer_class = UserLoginSerializer
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data, context={'request':request})
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class LogoutUserView(generics.GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = LogoutUserSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(status=status.HTTP_200_OK)
