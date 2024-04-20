@@ -23,6 +23,9 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
 class SendOtpSerializer(serializers.Serializer):
     email = serializers.EmailField(max_length=255, min_length=6)
+
+class VerifyEmailSerializer(serializers.Serializer):
+    otp = serializers.CharField(max_length=8)
     
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

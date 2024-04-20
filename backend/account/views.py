@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from account.utils import generate_otp, send_template_email, delete_instance_after
 from rest_framework.exceptions import MethodNotAllowed
 
-from account.serializers import UserRegistrationSerializer, UserSerializer,SendOtpSerializer,UserLoginSerializer, LogoutUserSerializer
+from account.serializers import UserRegistrationSerializer, UserSerializer,SendOtpSerializer,UserLoginSerializer, LogoutUserSerializer, VerifyEmailSerializer
 # Create your views here.
 class UserRegistrationView(generics.CreateAPIView):
     serializer_class = UserRegistrationSerializer
@@ -59,8 +59,12 @@ class SendOtpView(generics.GenericAPIView):
         )
 
 class VerifyEmailView(generics.GenericAPIView):
+    serializer_class = VerifyEmailSerializer
     def post(self, request):
-        otp = request.data.get('otp')
+        serializer = self.get_serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        otp = serializer.validated_data['otp']
         try:
             user_otp_instance = OneTimePassword.objects.get(otp=otp)
             validOtp = delete_instance_after(user_otp_instance, 5) # Checking OTP expire period for five minutes
@@ -89,6 +93,7 @@ class VerifyEmailView(generics.GenericAPIView):
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    http_method_names = ('get','delete','patch')
     lookup_field = 'username'
     filterset_fields = ['is_available', 'blood_group']
     filter_backends = [DjangoFilterBackend, SearchFilter]
