@@ -17,7 +17,7 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS=[,'https://bindu-blood-bank-api.onrender.com', 'http://localhost:8000', 'http://127.0.0.1:8000']
+CSRF_TRUSTED_ORIGINS=['https://bindu-blood-bank-api.onrender.com', 'http://localhost:8000', 'http://127.0.0.1:8000']
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ORIGIN_ALLOW_ALL = True
 AUTH_USER_MODEL = 'account.User'
