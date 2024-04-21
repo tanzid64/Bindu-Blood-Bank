@@ -5,7 +5,6 @@ from account.models import User, OneTimePassword
 from rest_framework.response import Response
 from account.utils import generate_otp, send_template_email, delete_instance_after
 from rest_framework.exceptions import MethodNotAllowed
-
 from account.serializers import UserRegistrationSerializer, UserSerializer,SendOtpSerializer,UserLoginSerializer, LogoutUserSerializer, VerifyEmailSerializer
 # Create your views here.
 class UserRegistrationView(generics.CreateAPIView):
@@ -91,6 +90,7 @@ class VerifyEmailView(generics.GenericAPIView):
 
         
 class UserProfileViewSet(viewsets.ModelViewSet):
+    permission_classes=[permissions.AllowAny,]
     queryset = User.objects.all()
     serializer_class = UserSerializer
     http_method_names = ('get','delete','patch')
