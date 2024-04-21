@@ -1,10 +1,11 @@
 "use client";
-
-import { Avatar, Dropdown, Navbar } from "flowbite-react";
-import Dark from "./Dark";
+import { Avatar } from "@nextui-org/react";
+import { Dropdown, Navbar } from "flowbite-react";
+import { DarkThemeToggle } from "flowbite-react";
 import logo from "/images/logo.png";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+// import { Link } from 'react-router-dom';
 
 export default function Nav() {
   const [isActive, setIsActive] = useState("home");
@@ -17,18 +18,12 @@ export default function Nav() {
         </span>
       </Navbar.Brand>
 
-      <div className="flex md:order-2">
-        <Dark />
+      <div className="flex md:order-2 gap-1">
+        <DarkThemeToggle />
         <Dropdown
           arrowIcon={false}
           inline
-          label={
-            <Avatar
-              alt="User settings"
-              img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-              rounded
-            />
-          }
+          label={<Avatar alt="User settings" src="" />}
         >
           <Dropdown.Header>
             <span className="block text-sm">Bonnie Green</span>
@@ -41,6 +36,12 @@ export default function Nav() {
           <Dropdown.Item>Earnings</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item>Sign out</Dropdown.Item>
+          <Dropdown.Item as={Link} to="/login">
+            Sign in
+          </Dropdown.Item>
+          <Dropdown.Item as={Link} to="/register">
+            Sign Up
+          </Dropdown.Item>
         </Dropdown>
         <Navbar.Toggle />
       </div>

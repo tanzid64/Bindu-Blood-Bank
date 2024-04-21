@@ -4,12 +4,10 @@ import BloodGroup from "./BloodGroup";
 import Username from "./Username";
 import Email from "./Email";
 import { useState } from "react";
-import { useRegisterUserMutation } from "../../Services/userAuthApi";
 import Password from "./Password";
 import Loader from "../Loader";
-// Password: Pa$$w0rd!
-// import Link from "next/link";
 import { toast } from "react-toastify";
+import { useRegisterUserMutation } from "../../Redux/apiSlice/userAuthApi";
 
 export default function SignUpForm() {
   const [error, setError] = useState({});
@@ -75,3 +73,4 @@ export default function SignUpForm() {
     </form>
   );
 }
+// Password: Pa$$w0rd!
