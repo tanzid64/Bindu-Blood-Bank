@@ -2,17 +2,17 @@ from django.db import models
 from core.models import TimeStampMixin
 from django.contrib.auth.models import AbstractUser
 from .managers import UserManager
+from django.utils.text import slugify
 from rest_framework_simplejwt.tokens import RefreshToken
 from .constants import GENDER_TYPE, BLOOD_TYPE
 # Create your models here.
 class User(TimeStampMixin, AbstractUser):
     image = models.ImageField(upload_to='profile_pictures')
     phone = models.CharField(max_length=15)
-    balance = models.DecimalField(decimal_places=2, max_digits=12, default=0)
     email = models.EmailField(unique=True)
     address = models.TextField()
     gender = models.CharField(max_length=10)
-    blood_group = models.CharField(max_length=10)
+    blood_group = models.CharField(choices=BLOOD_TYPE)
     total_donated = models.IntegerField(default=0)
     last_donation_date = models.DateField(null=True, blank=True, default=None)
     is_available = models.BooleanField(default=True)
@@ -23,6 +23,11 @@ class User(TimeStampMixin, AbstractUser):
 
     def __str__(self) -> str:
         return f"{self.username}"
+    def save(self, *args, **kwargs):
+        # Convert blood group to lowercase and replace '+' with '_positive'
+        if self.blood_group:
+            self.blood_group = slugify(self.blood_group).replace("-", "_")
+        super().save(*args, **kwargs)
     def tokens(self):
         refresh = RefreshToken.for_user(self)
         return {
