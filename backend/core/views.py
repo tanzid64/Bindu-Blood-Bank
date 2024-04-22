@@ -11,5 +11,5 @@ class ServiceView(ModelViewSet):
   lookup_field='slug'
   def get_permissions(self):
     if self.request.method == "GET":
-      return AllowAny
-    return IsAdminUser
+      return [AllowAny()]
+    return [IsAdminUser()]
