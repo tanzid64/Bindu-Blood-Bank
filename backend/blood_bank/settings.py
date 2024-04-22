@@ -25,6 +25,7 @@ AUTH_USER_MODEL = 'account.User'
 
 INSTALLED_APPS = [
     "corsheaders",
+    # Custom Admin Panel (Django JET)
     'jet.dashboard',
     'jet',
     'django.contrib.admin',
@@ -33,11 +34,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Custom Admin Panel (Django JET)
-    # 'jet_django',
     # Rest Framework
     'rest_framework',
-    'drf_yasg',
+    'drf_spectacular',
     'django_filters',
     'rest_framework_simplejwt.token_blacklist',
     # cloudinary
@@ -153,9 +152,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    # 'DEFAULT_SCHEMA_CLASS': (
-    #   'rest_framework.schemas.coreapi.AutoSchema'
-    # )
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 # Simple JWT setting
@@ -163,4 +160,12 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "AUTH_HEADER_TYPES": ("Bearer",),
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Bindu Blood Bank',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
 }
