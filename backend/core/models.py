@@ -12,8 +12,8 @@ class TimeStampMixin(models.Model):
 class Service(TimeStampMixin):
     title = models.CharField(max_length=300)
     slug = models.SlugField(max_length=350, unique=True, null=True, blank=True)
+    image = models.ImageField(upload_to='services/')
     description = models.TextField()
-    image = models.ImageField(upload_to='core/media/')
 
     def __str__(self) -> str:
         return self.title
@@ -24,8 +24,9 @@ class Service(TimeStampMixin):
     
 class ContactUs(TimeStampMixin):
     name = models.CharField(max_length = 30)
-    phone = models.CharField(max_length = 12)
+    email = models.EmailField(max_length=255)
     description = models.TextField()
+    mark_as_done = models.BooleanField(default=False)
     
     def __str__(self):
         return self.name
