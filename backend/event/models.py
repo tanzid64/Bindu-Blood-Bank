@@ -7,7 +7,7 @@ class Event(TimeStampMixin):
   title = models.CharField(max_length=255)
   slug = models.SlugField(unique=True)
   created_by = models.ForeignKey(User, related_name='event', on_delete=models.CASCADE)
-  is_approved = models.BooleanField()
+  is_approved = models.BooleanField(default=False)
   event_date = models.DateField()
   location = models.CharField()
   banner = models.ImageField(upload_to='bindu_blood_bank/event_banner')

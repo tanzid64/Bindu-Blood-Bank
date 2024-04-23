@@ -14,6 +14,8 @@ class EventPermission(BasePermission):
     # Allow POST request for authenticated user
     if request.user.is_authenticated and request.method == 'POST':
       return True
+    if request.user.is_staff:
+      return True
     return False
   
   def has_object_permission(self, request, view, obj):
