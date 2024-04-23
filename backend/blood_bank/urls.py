@@ -14,11 +14,13 @@ urlpatterns = [
    path('admin/', admin.site.urls),
    # YOUR PATTERNS
    path('schema/', SpectacularAPIView.as_view(), name='schema'),
-   # Optional UI:
+   # Documentation Urls
    path('', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
    path('schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+   # Apps Urls
    path('api/v1/auth/', include("account.urls")),
    path('api/v1/core/', include("core.urls")),
+   path('api/v1/event/', include("event.urls")),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
