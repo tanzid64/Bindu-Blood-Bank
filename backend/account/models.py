@@ -5,6 +5,7 @@ from .managers import UserManager
 from django.utils.text import slugify
 from rest_framework_simplejwt.tokens import RefreshToken
 from .constants import GENDER_TYPE, BLOOD_TYPE
+from datetime import datetime, timedelta
 # Create your models here.
 class User(TimeStampMixin, AbstractUser):
     image = models.ImageField(upload_to='profile_pictures')
@@ -27,6 +28,8 @@ class User(TimeStampMixin, AbstractUser):
         # Convert blood group to lowercase and replace '+' with '_positive'
         if self.blood_group:
             self.blood_group = slugify(self.blood_group).replace("-", "_")
+        super().save(*args, **kwargs)
+
         super().save(*args, **kwargs)
     def tokens(self):
         refresh = RefreshToken.for_user(self)

@@ -21,6 +21,7 @@ urlpatterns = [
    path('api/v1/auth/', include("account.urls")),
    path('api/v1/core/', include("core.urls")),
    path('api/v1/event/', include("event.urls")),
+   path('api/v1/donation/', include("donation.urls")),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

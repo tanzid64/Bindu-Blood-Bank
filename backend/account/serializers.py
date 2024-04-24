@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken, Token
 from tokenize import TokenError
+from datetime import datetime, timedelta
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(style={'input_type':'password'}, write_only=True)
     class Meta:
@@ -50,6 +51,14 @@ class UserLoginSerializer(serializers.ModelSerializer):
             raise AuthenticationFailed("Invalid credentials, please try again")
         if not user.is_active:
             raise AuthenticationFailed("Email is not verified")
+        # update donation availability
+        today = datetime.now().date()
+        three_months_ago = today - timedelta(days=90)
+
+        if user.last_donation_date is None or user.last_donation_date <= three_months_ago:
+            user.update(is_available = True)
+        else:
+            user.update(is_available = False)
         user_tokens = user.tokens()
         return {
             'user_details': user,
