@@ -17,7 +17,7 @@ class ServiceView(ModelViewSet):
 class ContactView(ModelViewSet):
   queryset = ContactUs.objects.all()
   serializer_class = ContactSerializer
-  lookup_field = ('get', 'post','patch')
+  http_method_names = ('get', 'post','patch',)
   def get_permissions(self):
     if self.request.method == "POST":
       return [AllowAny()]

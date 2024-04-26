@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.text import slugify
 from core.models import TimeStampMixin
 from account.models import User
+from cloudinary.models import CloudinaryField
+
 # Create your models here.
 class Event(TimeStampMixin):
   title = models.CharField(max_length=255)
@@ -10,7 +12,11 @@ class Event(TimeStampMixin):
   is_approved = models.BooleanField(default=False)
   event_date = models.DateField()
   location = models.CharField()
-  banner = models.ImageField(upload_to='bindu_blood_bank/event_banner')
+  banner = CloudinaryField(
+        'image', 
+        folder="Bindu_Blood_Bank_Api/events",
+        tags=['user','profile'],
+    )
   description = models.TextField()
 
   def save(self, *args, **kwargs):
