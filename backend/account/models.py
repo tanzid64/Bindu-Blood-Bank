@@ -5,10 +5,15 @@ from .managers import UserManager
 from django.utils.text import slugify
 from rest_framework_simplejwt.tokens import RefreshToken
 from .constants import GENDER_TYPE, BLOOD_TYPE
+from cloudinary.models import CloudinaryField
 from datetime import datetime, timedelta
 # Create your models here.
 class User(TimeStampMixin, AbstractUser):
-    image = models.ImageField(upload_to='profile_pictures')
+    image = CloudinaryField(
+        'image', 
+        folder="Bindu_Blood_Bank_Api/Users",
+        tags=['user','profile'],
+    )
     phone = models.CharField(max_length=15)
     email = models.EmailField(unique=True)
     address = models.TextField()
