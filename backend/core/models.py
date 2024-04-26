@@ -1,3 +1,4 @@
+from distutils.command import upload
 from django.db import models
 from django.utils.text import slugify
 import cloudinary.uploader
@@ -12,10 +13,8 @@ class TimeStampMixin(models.Model):
         abstract = True
 
 class Service(TimeStampMixin):
-    image = CloudinaryField(
-        'image', 
-        folder="Bindu_Blood_Bank_Api/Services",
-        tags=['services',],
+    image = models.ImageField(
+        upload_to="Bindu_Blood_Bank_Api/Services",
     )
     title = models.CharField(max_length=300)
     slug = models.SlugField(max_length=350, unique=True, null=True, blank=True)

@@ -9,10 +9,8 @@ from cloudinary.models import CloudinaryField
 from datetime import datetime, timedelta
 # Create your models here.
 class User(TimeStampMixin, AbstractUser):
-    image = CloudinaryField(
-        'image', 
-        folder="Bindu_Blood_Bank_Api/Users",
-        tags=['user','profile'],
+    image = models.ImageField(
+        upload_to="Bindu_Blood_Bank_Api/Users",
     )
     phone = models.CharField(max_length=15)
     email = models.EmailField(unique=True)

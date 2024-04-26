@@ -12,10 +12,8 @@ class Event(TimeStampMixin):
   is_approved = models.BooleanField(default=False)
   event_date = models.DateField()
   location = models.CharField()
-  banner = CloudinaryField(
-        'image', 
-        folder="Bindu_Blood_Bank_Api/events",
-        tags=['user','profile'],
+  banner = models.ImageField(
+        upload_to="Bindu_Blood_Bank_Api/events",
     )
   description = models.TextField()
 
@@ -23,3 +21,4 @@ class Event(TimeStampMixin):
     if not self.slug:
       self.slug = slugify(self.title)
     super().save(*args, **kwargs)
+
