@@ -13,3 +13,12 @@ class ServiceView(ModelViewSet):
     if self.request.method == "GET":
       return [AllowAny()]
     return [IsAdminUser()]
+  
+class ContactView(ModelViewSet):
+  queryset = ContactUs.objects.all()
+  serializer_class = ContactSerializer
+  lookup_field = ('get', 'post','patch')
+  def get_permissions(self):
+    if self.request.method == "POST":
+      return [AllowAny()]
+    return [IsAdminUser()]
