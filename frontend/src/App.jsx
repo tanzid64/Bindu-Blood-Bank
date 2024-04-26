@@ -1,34 +1,20 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import About from "./Components/common/About";
-import MainFooter from "./Components/MainFooter";
-import Nav from "./Components/common/Nav";
-import SignUpForm from "./Components/SignUp/SignUpForm";
-import Home from "./pages/Home";
-import Donors from "./pages/Donors";
-import Login from "./Components/Login";
+import MainFooter from "./components/MainFooter";
+import Nav from "./components/Nav";
+import SectionTitle from "./components/SectionTitle";
+import About from "./pages/About";
+import Home from "./pages/home/Home";
 
-
-
-
-export default function App() {
+const App = () => {
   return (
     <>
-      <Router>
-        <Nav />
-        <ToastContainer toastClassName={`dark:bg-gray-800`} />
-        <main className=" md:p-10 min-h-[73.5vh]">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/register" element={<SignUpForm />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/donors" element={<Donors />} />
-          </Routes>
-        </main>
-        <MainFooter />
-      </Router>
+    <Nav/>
+      <main className="container mt-20">
+        <Home />
+        <About />
+      </main>
+      <MainFooter/>
     </>
   );
-}
+};
+
+export default App;
