@@ -22,8 +22,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS=['https://bindu-blood-bank-api.onrender.com', 'http://localhost:8000', 'http://127.0.0.1:8000']
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ORIGIN_ALLOW_ALL = True
+
+
 AUTH_USER_MODEL = 'account.User'
 # Application definition
 
@@ -164,6 +164,14 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
+#CORS Settings
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "https://bindu-blood-bank.vercel.app",
+    "http://localhost:8080",
+    "http://127.0.0.1:9000",
+]
+CORS_ALLOW_CREDENTIALS = True
 # Simple JWT setting
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=365),

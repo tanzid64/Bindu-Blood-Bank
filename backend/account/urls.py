@@ -1,6 +1,8 @@
 from django.urls import path,include
 from account.views import UserRegistrationView, VerifyEmailView, UserProfileViewSet,SendOtpView,LoginUserView
 from rest_framework import routers
+from rest_framework_simplejwt.views import TokenRefreshView
+
 router = routers.DefaultRouter()
 router.register('',UserProfileViewSet,basename="profile-api")
 urlpatterns = [
@@ -9,4 +11,5 @@ urlpatterns = [
     path('verify-email/', VerifyEmailView.as_view(), name="verify-email-api"),
     path('otp/request/',SendOtpView.as_view(), name="send-otp-api"),
     path('login/',LoginUserView.as_view(), name="login-api"),
+    path('token/refresh/', TokenRefreshView.as_view(), name="token-refresh-api"),
 ]
