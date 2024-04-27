@@ -4,19 +4,19 @@ const About = () => {
   return (
     <div>
       <SectionTitle title="About Us" />
-      <Blockquote className="my-4 border-l-4 border-gray-300 bg-gray-50 p-4 dark:border-gray-500 dark:bg-gray-800">
+      <Blockquote className="my-4 border-l-4 border-gray-300 bg-gray-50 p-4 dark:border-gray-500 dark:bg-gray-800 text-justify">
         "The blood you donate gives someone another chance at life. One day that
         someone may be a close relative, a friend, a loved one—or even you."
       </Blockquote>
-      <Blockquote className="my-4 border-l-4 border-gray-300 bg-gray-50 p-4 dark:border-gray-500 dark:bg-gray-800">
+      <Blockquote className="my-4 border-l-4 border-gray-300 bg-gray-50 p-4 dark:border-gray-500 dark:bg-gray-800 text-justify">
         "To give blood, you need neither extra strength nor extra food, and you
         will save a life." - Dr. Charles Drew"
       </Blockquote>
-      <Blockquote className="my-4 border-l-4 border-gray-300 bg-gray-50 p-4 dark:border-gray-500 dark:bg-gray-800">
+      <Blockquote className="my-4 border-l-4 border-gray-300 bg-gray-50 p-4 dark:border-gray-500 dark:bg-gray-800 text-justify">
         "The blood you donate gives someone another chance at life. One day that
         someone may be a close relative, a friend, a loved one—or even you."
       </Blockquote>
-      <p className="text-gray-500 dark:text-gray-400">
+      <p className="text-gray-500 dark:text-gray-400 text-justify">
         Across Bangladesh, every day there remains an urgent need for all types
         of blood groups. Especially donors with rare blood groups such as O
         Negative, B Negative and A Negative are in high demand. Your timely
@@ -24,7 +24,7 @@ const About = () => {
         daily demand we face.
       </p>
       <br />
-      <p className="text-gray-500 dark:text-gray-400">
+      <p className="text-gray-500 dark:text-gray-400 text-justify">
         Your donation can save the lives of many, make a difference or simply
         make you feel great about your contribution to humanity. Whatever your
         reason, whatever your motivation we welcome you to learn more about

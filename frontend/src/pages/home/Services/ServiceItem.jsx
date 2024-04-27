@@ -1,15 +1,27 @@
-import React from "react";
-import { Card, CardHeader, CardBody, Image } from "@nextui-org/react";
-import service from "/service.png";
-export default function ServiceItem() {
+import { Card, CardHeader, CardBody, Image, Button } from "@nextui-org/react";
+import { Link } from "react-router-dom";
+export default function ServiceItem({ service }) {
+  const sliceDescription = (description) => {
+    const words = description.split(" ");
+    return words.slice(0, 10).join(" ");
+  };
   return (
-    <Card className="w-full">
-      <Image alt="Card background" className="object-cover rounded-t-lg " src={service} />
-      <CardHeader className="pb-0 pt-2 px-4 flex-col items-start"></CardHeader>
+    <Card className="">
+      <Image
+        alt="Card background"
+        className="object-cover rounded-t-lg "
+        src={service.image ? service.image : ""}
+      />
       <CardBody className="overflow-visible py-2">
-        <p className="text-tiny uppercase font-bold">Daily Mix</p>
-        <small className="text-default-500">12 Tracks</small>
-        <h4 className="font-bold text-large">Frontend Radio</h4>
+        <h4 className="font-bold text-large">{service.title}</h4>
+        <small className="text-default-500">
+          {sliceDescription(service.description)}
+        </small>
+        <div className="inline-block mt-3">
+          <Button as={Link} to={`/services/${service.slug}`}>
+            Read More
+          </Button>
+        </div>
       </CardBody>
     </Card>
   );

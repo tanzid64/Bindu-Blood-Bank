@@ -4,11 +4,12 @@ import logo from "/logo.png";
 import { Dropdown, Navbar } from "flowbite-react";
 import { Avatar } from "@nextui-org/react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 export default function Nav() {
   const [isActive, setIsActive] = useState("home");
   return (
     <Navbar fluid className="fixed top-0 z-50 w-full">
-      <Navbar.Brand href="/home">
+      <Navbar.Brand as={Link} to="/">
         <img src={logo} className="mr-2 h-6 sm:h-7" alt="Bindu Logo" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
           BINDU
@@ -36,19 +37,16 @@ export default function Nav() {
       </div>
       <Navbar.Collapse>
         <Navbar.Link
+          as={Link}
+          to="/"
           onClick={() => setIsActive("home")}
           active={isActive === "home"}
         >
           Home
         </Navbar.Link>
-
         <Navbar.Link
-          onClick={() => setIsActive("userGuide")}
-          active={isActive === "userGuide"}
-        >
-          User-Guide
-        </Navbar.Link>
-        <Navbar.Link
+          as={Link}
+          to="/donors"
           onClick={() => setIsActive("donors")}
           active={isActive === "donors"}
         >
@@ -67,10 +65,20 @@ export default function Nav() {
           Contact
         </Navbar.Link>
         <Navbar.Link
+          as={Link}
+          to="/about"
           onClick={() => setIsActive("about")}
           active={isActive === "about"}
         >
           About
+        </Navbar.Link>
+        <Navbar.Link
+          as={Link}
+          to="/documentation"
+          onClick={() => setIsActive("documentation")}
+          active={isActive === "documentation"}
+        >
+          Documentation
         </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
