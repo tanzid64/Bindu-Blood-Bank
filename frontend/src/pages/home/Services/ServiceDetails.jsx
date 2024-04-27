@@ -4,39 +4,24 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Spinner } from "@nextui-org/spinner";
 import { Image } from "@nextui-org/image";
+import { useGetServiceDetailQuery } from "../../../redux/apiSlices/servicesApi";
 const ServiceDetails = () => {
   const { slug } = useParams();
-  const [service, setService] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const fetchServices = async () => {
-    try {
-      const res = await axios.get(
-        `https://sour-libby-thzone.koyeb.app/api/v1/core/services/${slug}/`
-      );
-      setService(res.data);
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setLoading(false);
-    }
-  };
-  useEffect(() => {
-    fetchServices();
-  }, [slug]);
+  const { data, error, isLoading } = useGetServiceDetailQuery(slug);
   return (
     <div>
-      {loading ? (
-        <div className={loading && `flex items-center justify-center min-h-96`}>
+      {isLoading ? (
+        <div className={isLoading && `flex items-center justify-center min-h-96`}>
           <Spinner />
         </div>
       ) : (
         <>
-          <SectionTitle title={service.title} />
+          <SectionTitle title={data.title} />
           <Image
             alt="NextUI hero Image with delay"
-            src={service.image && service.image}
+            src={data.image && data.image}
           />
-          <p className="text-justify mt-5">{service.description}</p>
+          <p className="text-justify mt-5">{data.description}</p>
         </>
       )}
     </div>

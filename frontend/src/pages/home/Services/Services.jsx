@@ -9,10 +9,10 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Spinner } from "@nextui-org/spinner";
-import { useFetchServicesQuery } from "../../../redux/apiSlices/servicesApi";
+import { useGetServicesQuery } from "../../../redux/apiSlices/servicesApi";
 
 const Services = () => {
-  const { data, error, isLoading } = useFetchServicesQuery();
+  const { data, error, isLoading } = useGetServicesQuery();
   return (
     <div>
       <SectionTitle title="Our Services" />
@@ -24,7 +24,7 @@ const Services = () => {
         <div className="container">
           <Carousel className="w-full">
             <CarouselContent className="-ml-1">
-              {data.map((service, index) => (
+              {data?.map((service, index) => (
                 <CarouselItem
                   key={index}
                   className="pl-1 md:basis-1/2 lg:basis-1/3"

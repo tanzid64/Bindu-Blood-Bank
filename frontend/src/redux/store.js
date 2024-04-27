@@ -1,16 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import servicesReducer from "./slices/servicesSlice";
-import servicesApi from "./apiSlices/servicesApi";
+import { apiSlice } from "./apiSlices/apiSlice";
+import authReducer from "./slices/authSlice";
 
 const store = configureStore({
   reducer: {
-    [servicesApi.reducerPath]: servicesApi.reducer,
+    [apiSlice.reducerPath]: apiSlice.reducer,
+    auth: authReducer,
   },
-  middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(servicesApi.middleware);
-  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
+
+  devTools: true,
 });
 setupListeners(store.dispatch);
-export { useFetchServicesQuery } from "./apiSlices/servicesApi";
 export default store;

@@ -1,23 +1,24 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { apiSlice } from "./apiSlice";
 
-const servicesApi = createApi({
-  reducerPath: "servicesApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "https://sour-libby-thzone.koyeb.app/api/v1/core/",
+const servicesApi = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    getServices: builder.query({
+      query: (query) => {
+        return {
+          url: "core/services/",
+          method: "GET",
+        };
+      },
+    }),
+    getServiceDetail: builder.query({
+      query: (slug) => {
+        return {
+          url: `core/services/${slug}/`,
+          method: "GET",
+        };
+      },
+    }),
   }),
-  endpoints(builder) {
-    return {
-      fetchServices: builder.query({
-        query: (query) => {
-          return {
-            url: "services/",
-            method: "GET",
-          };
-        },
-      }),
-    };
-  },
 });
 
-export const { useFetchServicesQuery } = servicesApi;
-export default servicesApi;
+export const { useGetServicesQuery, useGetServiceDetailQuery } = servicesApi;
