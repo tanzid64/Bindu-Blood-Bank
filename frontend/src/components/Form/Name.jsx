@@ -1,18 +1,20 @@
 import { Label, TextInput } from "flowbite-react";
 import React from "react";
 
-const Name = ({name, label, placeholder}) => {
+const Name = ({ name, label, placeholder, onChange, error }) => {
   return (
     <div>
       <div className="mb-2 block">
-        <Label htmlFor="name" value={label} />
+        <Label htmlFor={name} value={label} />
       </div>
       <TextInput
-        id="name"
+        id={name}
         type="text"
         name={name}
         placeholder={placeholder}
+        onChange={onChange}
       />
+      <p className="text-red-600 text-sm italic pb-2">{error}</p>
     </div>
   );
 };

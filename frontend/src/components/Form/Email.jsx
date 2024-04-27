@@ -1,7 +1,7 @@
-import { Label, TextInput } from 'flowbite-react';
-import React from 'react'
+import { Label, TextInput } from "flowbite-react";
+import React from "react";
 
-const Email = () => {
+const Email = ({ onChange, error }) => {
   return (
     <div>
       <div className="mb-2 block">
@@ -11,10 +11,12 @@ const Email = () => {
         id="email1"
         type="email"
         placeholder="name@flowbite.com"
-        name='email'
+        name="email"
+        onChange={onChange}
       />
+      <p className="text-red-600 text-sm italic pb-2">{error}</p>
     </div>
   );
-}
+};
 
-export default Email
+export default Email;
