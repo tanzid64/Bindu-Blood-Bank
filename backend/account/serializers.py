@@ -39,9 +39,11 @@ class UserLoginSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     access_token = serializers.CharField(read_only=True)
     refresh_token = serializers.CharField(read_only=True)
+
     class Meta:
         model = User
         fields = ['email', 'password', 'user_details', 'access_token', 'refresh_token']
+
     def validate(self, attrs):
         email = attrs.get('email')
         password = attrs.get('password')
@@ -51,17 +53,10 @@ class UserLoginSerializer(serializers.ModelSerializer):
             raise AuthenticationFailed("Invalid credentials, please try again")
         if not user.is_active:
             raise AuthenticationFailed("Email is not verified")
-        # update donation availability
-        today = datetime.now().date()
-        three_months_ago = today - timedelta(days=90)
 
-        if user.last_donation_date is None or user.last_donation_date <= three_months_ago:
-            user.update(is_available = True)
-        else:
-            user.update(is_available = False)
         user_tokens = user.tokens()
         return {
-            'user_details': user,
+            'user_details': UserSerializer(user).data,
             'access_token': user_tokens.get('access'),
             'refresh_token': user_tokens.get('refresh')
         }

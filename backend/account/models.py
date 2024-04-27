@@ -32,14 +32,10 @@ class User(TimeStampMixin, AbstractUser):
     def __str__(self) -> str:
         return f"{self.username}"
     def save(self, *args, **kwargs):
-        # Convert blood group to lowercase and replace '+' with '_positive'
-        if self.blood_group:
-            self.blood_group = slugify(self.blood_group).replace("-", "_")
         if self.image:
             self.image = self.compressImage(self.image)
         super().save(*args, **kwargs)
 
-        super().save(*args, **kwargs)
     def tokens(self):
         refresh = RefreshToken.for_user(self)
         return {
