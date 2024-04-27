@@ -35,7 +35,8 @@ class User(TimeStampMixin, AbstractUser):
         # Convert blood group to lowercase and replace '+' with '_positive'
         if self.blood_group:
             self.blood_group = slugify(self.blood_group).replace("-", "_")
-        self.image = self.compressImage(self.image)
+        if self.image:
+            self.image = self.compressImage(self.image)
         super().save(*args, **kwargs)
 
         super().save(*args, **kwargs)
