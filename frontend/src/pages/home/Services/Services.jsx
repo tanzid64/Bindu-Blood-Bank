@@ -9,40 +9,22 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Spinner } from "@nextui-org/spinner";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useFetchServicesQuery } from "../../../redux/apiSlices/servicesApi";
 
 const Services = () => {
-  const [services, setServices] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const fetchServices = async () => {
-    try {
-      const res = await axios.get(
-        "https://sour-libby-thzone.koyeb.app/api/v1/core/services/"
-      );
-      setServices(res.data);
-      console.log(res.data)
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setLoading(false);
-    }
-  };
-  useEffect(() => {
-    fetchServices();
-  }, []);
+  const { data, error, isLoading } = useFetchServicesQuery();
   return (
     <div>
       <SectionTitle title="Our Services" />
-      {loading ? (
-        <div className={loading && `flex items-center justify-center min-h-96`}>
+      {isLoading ? (
+        <div className={isLoading && `flex items-center justify-center min-h-96`}>
           <Spinner />
         </div>
       ) : (
         <div className="container">
           <Carousel className="w-full">
             <CarouselContent className="-ml-1">
-              {services.map((service, index) => (
+              {data.map((service, index) => (
                 <CarouselItem
                   key={index}
                   className="pl-1 md:basis-1/2 lg:basis-1/3"

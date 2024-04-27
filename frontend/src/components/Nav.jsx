@@ -9,7 +9,7 @@ export default function Nav() {
   const [isActive, setIsActive] = useState("home");
   return (
     <Navbar fluid className="fixed top-0 z-50 w-full">
-      <Navbar.Brand as={Link} to="/">
+      <Navbar.Brand as={Link} to="/" onClick={() => setIsActive("home")}>
         <img src={logo} className="mr-2 h-6 sm:h-7" alt="Bindu Logo" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
           BINDU
