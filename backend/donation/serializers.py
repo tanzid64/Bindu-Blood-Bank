@@ -9,7 +9,7 @@ class DonationRequestSerializer(serializers.ModelSerializer):
   class Meta:
     model = DonationRequest
     fields = '__all__'
-    read_only_fields = ['id','created_by','is_accepted']
+    read_only_fields = ['id','created_at','created_by','is_accepted']
 
 class DonationReportSerializer(serializers.ModelSerializer):
   user = UserDetailsSerializer(many=False, read_only=True)
@@ -17,6 +17,6 @@ class DonationReportSerializer(serializers.ModelSerializer):
   event_id = serializers.IntegerField( write_only=True)
   class Meta:
     model = DonationReport
-    fields = ['user','event', 'event_id']
+    fields = ['created_at','user','event', 'event_id']
 
         
