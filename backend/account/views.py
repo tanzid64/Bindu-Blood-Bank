@@ -59,33 +59,32 @@ class SendOtpView(generics.GenericAPIView):
 
 class VerifyEmailView(generics.GenericAPIView):
     serializer_class = VerifyEmailSerializer
+
     def post(self, request):
-        serializer = self.get_serializer_class(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        otp = serializer.validated_data['otp']
+        otp = serializer.validated_data.get('otp')
         try:
             user_otp_instance = OneTimePassword.objects.get(otp=otp)
-            validOtp = delete_instance_after(user_otp_instance, 5) # Checking OTP expire period for five minutes
-            if(validOtp):
+            valid_otp = delete_instance_after(user_otp_instance, 5)  # Checking OTP expiry period for five minutes
+            if valid_otp:
                 user = user_otp_instance.user
                 user.is_active = True
                 user.save()
                 return Response(
-                    {
-                        'message': 'Account email verified successfully.'
-                    }, status=status.HTTP_202_ACCEPTED
+                    {'message': 'Account email verified successfully.'},
+                    status=status.HTTP_202_ACCEPTED
                 )
-            return Response(
-                {
-                    'error': 'Otp expired. Try again.'
-                }, status=status.HTTP_204_NO_CONTENT
-            )
+            else:
+                return Response(
+                    {'error': 'OTP expired. Try again.'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
         except OneTimePassword.DoesNotExist:
             return Response(
-                {
-                    'error': 'Otp not provided.'
-                }, status=status.HTTP_404_NOT_FOUND
+                {'error': 'OTP not provided.'},
+                status=status.HTTP_404_NOT_FOUND
             )
 
         
