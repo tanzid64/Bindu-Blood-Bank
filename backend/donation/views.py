@@ -17,6 +17,10 @@ class DonationReportView(viewsets.ModelViewSet):
   queryset = DonationReport.objects.all()
   serializer_class = DonationReportSerializer
   http_method_names = ('post','get')
+  def get_queryset(self):
+        user = self.request.user
+        # Filter the queryset to show only the logged-in user's data
+        return self.queryset.filter(user=user)
   def perform_create(self, serializer):
     event_id = serializer.validated_data['event_id']
     if event_id is None:
