@@ -56,7 +56,7 @@ class UserLoginSerializer(serializers.ModelSerializer):
 
         user_tokens = user.tokens()
         return {
-            'user_details': UserSerializer(user).data,
+            'user_details': user,
             'access_token': user_tokens.get('access'),
             'refresh_token': user_tokens.get('refresh')
         }
