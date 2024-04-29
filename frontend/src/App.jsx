@@ -11,6 +11,8 @@ import DeveloperZone from "./pages/Documentation/DeveloperZone";
 import ServiceDetails from "./pages/home/Services/ServiceDetails";
 import Login from "./pages/Login";
 import MainToast from "./components/MainToast";
+import Profile from "./pages/profile/Profile";
+import Dashboard from "./pages/dashboard/Dashboard";
 
 const App = () => {
   return (
@@ -25,7 +27,9 @@ const App = () => {
             <Route path="/donors" element={<Donors />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/profile/:username" element={<Profile />} />
             <Route path="/documentation" element={<Documentation />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/developer" element={<DeveloperZone />} />
             <Route path="/services/:slug" element={<ServiceDetails />} />
           </Routes>

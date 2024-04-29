@@ -1,7 +1,11 @@
 import { Button, Flowbite } from "flowbite-react";
 
 import banner from "/banner.png";
+import { selectCurrentUser } from "../../redux/slices/authSlice";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 const Banner = () => {
+  const user = useSelector(selectCurrentUser);
   return (
     <Flowbite>
       <div className="flex flex-col-reverse md:flex-row lg:justify-around ">
@@ -18,13 +22,28 @@ const Banner = () => {
             <br />
             Total donated:
           </p>
-
-          <Button className="inline-flex items-center justify-center mr-3">
-            Get Started
-          </Button>
-          <Button className="inline-flex items-center justify-center mr-3">
-            Dashboard
-          </Button>
+          {user ? (
+            <>
+              <Button
+                as={Link}
+                to="/dashboard"
+                className="inline-flex items-center justify-center mr-3"
+              >
+                Dashboard
+              </Button>
+              <Button
+                as={Link}
+                to={`/profile/${user.username}`}
+                className="inline-flex items-center justify-center mr-3"
+              >
+                Profile
+              </Button>
+            </>
+          ) : (
+            <Button className="inline-flex items-center justify-center mr-3">
+              Get Started
+            </Button>
+          )}
         </div>
         {/* Image */}
         <div className="p-5 md:pt-5 md:col-span-2 text-center">

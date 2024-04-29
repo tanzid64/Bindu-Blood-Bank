@@ -30,7 +30,20 @@ const authApi = apiSlice.injectEndpoints({
         };
       },
     }),
+    getUserProfile: builder.query({
+      query: (username) => {
+        return {
+          url: `auth/profile/${username}/`,
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetAllUserProfileQuery, useLoginMutation, useLogoutMutation } = authApi;
+export const {
+  useGetAllUserProfileQuery,
+  useLoginMutation,
+  useLogoutMutation,
+  useGetUserProfileQuery,
+} = authApi;

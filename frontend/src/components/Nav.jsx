@@ -7,9 +7,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut, selectCurrentUser } from "../redux/slices/authSlice";
-import { useLogoutMutation } from "../redux/apiSlices/authApi";
 import { setToast } from "../redux/slices/toastSlice";
-import MainToast from "./MainToast";
 
 export default function Nav() {
   const navigate = useNavigate();
@@ -20,6 +18,7 @@ export default function Nav() {
     localStorage.removeItem("refreshToken");
     dispatch(logOut());
     dispatch(setToast({ message: "Logged out", type: "warning" }));
+
     navigate("/login");
   };
   return (
@@ -47,16 +46,32 @@ export default function Nav() {
                   </span>
                 </Dropdown.Header>
                 <Dropdown.Item>Dashboard</Dropdown.Item>
-                <Dropdown.Item>Profile</Dropdown.Item>
+                <Dropdown.Item
+                  as={Link}
+                  to={`/profile/${user.username}`}
+                  onClick={() => setIsActive("profile")}
+                >
+                  Profile
+                </Dropdown.Item>
                 <Dropdown.Divider />
                 <Dropdown.Item onClick={handleLogout}>Log out</Dropdown.Item>
               </>
             ) : (
               <>
-                <Dropdown.Item as={Link} to="/login">
+                <Dropdown.Item
+                  as={Link}
+                  to="/login"
+                  onClick={() => setIsActive("login")}
+                >
                   Login
                 </Dropdown.Item>
-                <Dropdown.Item>Register</Dropdown.Item>
+                <Dropdown.Item
+                  as={Link}
+                  to="/register"
+                  onClick={() => setIsActive("login")}
+                >
+                  Register
+                </Dropdown.Item>
               </>
             )}
           </Dropdown>
@@ -78,18 +93,6 @@ export default function Nav() {
             active={isActive === "donors"}
           >
             Donors
-          </Navbar.Link>
-          <Navbar.Link
-            onClick={() => setIsActive("services")}
-            active={isActive === "services"}
-          >
-            Services
-          </Navbar.Link>
-          <Navbar.Link
-            onClick={() => setIsActive("contact")}
-            active={isActive === "contact"}
-          >
-            Contact
           </Navbar.Link>
           <Navbar.Link
             as={Link}
