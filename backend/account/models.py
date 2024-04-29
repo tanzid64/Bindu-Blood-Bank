@@ -8,6 +8,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .constants import GENDER_TYPE, BLOOD_TYPE
 from cloudinary.models import CloudinaryField
 from datetime import datetime, timedelta
+from django.utils import timezone
 from io import BytesIO  #basic input/output operation
 from PIL import Image #Imported to compress images
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -32,6 +33,9 @@ class User(TimeStampMixin, AbstractUser):
     def __str__(self) -> str:
         return f"{self.username}"
     def save(self, *args, **kwargs):
+        if self.last_donation_date is None or \
+                (timezone.now() - self.last_donation_date) > timedelta(days=3 * 30):
+            self.is_available = True
         if self.image:
             self.image = self.compressImage(self.image)
         super().save(*args, **kwargs)

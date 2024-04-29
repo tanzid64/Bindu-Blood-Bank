@@ -34,9 +34,9 @@ class DonationReportView(viewsets.ModelViewSet):
       raise ValidationError("You can only donate same blood group")
     if not user.is_available:
       raise ValidationError("You can donate only once in 3 months")
-    event.update(is_accepted=True)
-    user.update(
-      last_donation_date = datetime.now().date(),
-      total_donated = user.total_donated + 1
-    )
+    event.is_accepted = True
+    event.save()
+    user.last_donation_date = datetime.now().date()
+    user.total_donated += 1
+    user.save()
     return serializer.save(user=self.request.user, event=event)
