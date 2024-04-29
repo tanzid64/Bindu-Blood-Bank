@@ -44,9 +44,8 @@ const Login = () => {
       setNonFieldError("");
       navigate("/");
     } catch (err) {
-      console.log(err);
       if (err.status === 401) {
-        dispatch(setToast({ message: err.data.detail, type: "error" }));
+        dispatch(setToast({ message: err.data.detail, type: "danger" }));
       } else if (err.status === 400) {
         setFieldError(err.data);
       }

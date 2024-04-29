@@ -1,7 +1,7 @@
 import { apiSlice } from "./apiSlice";
 
 const donationApi = apiSlice.injectEndpoints({
-  tagTypes: ["DonationRequests"],
+  tagTypes: ["DonationRequests", "DonationReports"],
   endpoints: (builder) => ({
     getDonationRequest: builder.query({
       query: (query) => {
@@ -25,7 +25,13 @@ const donationApi = apiSlice.injectEndpoints({
           method: "GET",
         };
       },
-      providesTags: ["DonationRequests"],
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: "DonationReports", id })),
+              "DonationReports",
+            ]
+          : ["DonationReports"],
     }),
     postDonationRequest: builder.mutation({
       query: (data) => {
@@ -37,6 +43,16 @@ const donationApi = apiSlice.injectEndpoints({
       },
       invalidatesTags: ["DonationRequests"],
     }),
+    postDonationReport: builder.mutation({
+      query: (id) => {
+        return {
+          url: "donation/report/",
+          method: "POST",
+          body: { event_id: id },
+        };
+      },
+      invalidatesTags: ["DonationRequests", 'DonationReports'],
+    }),
   }),
 });
 
@@ -45,4 +61,5 @@ export const {
   useGetDonationRequestQuery,
   useGetDonationReportQuery,
   usePostDonationRequestMutation,
+  usePostDonationReportMutation,
 } = donationApi;

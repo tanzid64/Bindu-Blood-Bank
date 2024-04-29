@@ -14,8 +14,6 @@ const DonationRequest = () => {
           <Table.HeadCell>Date</Table.HeadCell>
           <Table.HeadCell>Blood Group</Table.HeadCell>
           <Table.HeadCell>Status</Table.HeadCell>
-          <Table.HeadCell>Donaor</Table.HeadCell>
-          <Table.HeadCell>Donation Date</Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
           {data?.map(
@@ -32,8 +30,7 @@ const DonationRequest = () => {
                   <Table.Cell>
                     {item.is_accepted ? "Accepted" : "Not Accepted"}
                   </Table.Cell>
-                  <Table.Cell>$2999</Table.Cell>
-                  <Table.Cell>$2999</Table.Cell>
+                  
                 </Table.Row>
               )
           )}

@@ -1,6 +1,7 @@
 import { apiSlice } from "./apiSlice";
 
 const authApi = apiSlice.injectEndpoints({
+  tagTypes: ["allusers"],
   endpoints: (builder) => ({
     // Register
     register: builder.mutation({
@@ -11,6 +12,7 @@ const authApi = apiSlice.injectEndpoints({
           body: credentials,
         };
       },
+      invalidatesTags: ["allusers"],
     }),
     // Confirm Email
     confirmEmail: builder.mutation({
@@ -50,6 +52,10 @@ const authApi = apiSlice.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: (result) =>
+        result
+          ? [...result.map(({ id }) => ({ type: "allusers", id })), "allusers"]
+          : ["allusers"],
     }),
     // Get User Profile
     getUserProfile: builder.query({

@@ -12,62 +12,9 @@ const OthersDonationRequest = ({ data }) => {
       <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-3">
         {data?.map(
           (item, index) =>
-            item.created_by.username != user.username && (
-              <DonationCard item={item} key={index} />
-            )
-        )}
-        {data?.map(
-          (item, index) =>
-            item.created_by.username != user.username && (
-              <DonationCard item={item} key={index} />
-            )
-        )}
-        {data?.map(
-          (item, index) =>
-            item.created_by.username != user.username && (
-              <DonationCard item={item} key={index} />
-            )
-        )}
-        {data?.map(
-          (item, index) =>
-            item.created_by.username != user.username && (
-              <DonationCard item={item} key={index} />
-            )
-        )}
-        {data?.map(
-          (item, index) =>
-            item.created_by.username != user.username && (
-              <DonationCard item={item} key={index} />
-            )
-        )}
-        {data?.map(
-          (item, index) =>
-            item.created_by.username != user.username && (
-              <DonationCard item={item} key={index} />
-            )
-        )}
-        {data?.map(
-          (item, index) =>
-            item.created_by.username != user.username && (
-              <DonationCard item={item} key={index} />
-            )
-        )}
-        {data?.map(
-          (item, index) =>
-            item.created_by.username != user.username && (
-              <DonationCard item={item} key={index} />
-            )
-        )}
-        {data?.map(
-          (item, index) =>
-            item.created_by.username != user.username && (
-              <DonationCard item={item} key={index} />
-            )
-        )}
-        {data?.map(
-          (item, index) =>
-            item.created_by.username != user.username && (
-              <DonationCard item={item} key={index} />
+            item.created_by.username != user.username &&
+            item.is_accepted == false && (
+              <DonationCard item={item} key={index} type="other" />
             )
         )}
       </div>
