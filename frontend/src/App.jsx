@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import MainToast from "./components/MainToast";
 import Profile from "./pages/profile/Profile";
 import Dashboard from "./pages/dashboard/Dashboard";
+import Otp from "./pages/Otp";
 
 const App = () => {
   return (
@@ -20,12 +21,12 @@ const App = () => {
       <div className="flex flex-col min-h-screen">
         <Nav />
         <main className="container my-20 ">
-          <MainToast />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/donors" element={<Donors />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route path="/register" element={<Signup />} />
+            <Route path="/confirm/email" element={<Otp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile/:username" element={<Profile />} />
             <Route path="/documentation" element={<Documentation />} />

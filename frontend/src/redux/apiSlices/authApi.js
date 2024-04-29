@@ -2,6 +2,26 @@ import { apiSlice } from "./apiSlice";
 
 const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    // Register
+    register: builder.mutation({
+      query: (credentials) => {
+        return {
+          url: "auth/register/",
+          method: "POST",
+          body: credentials,
+        };
+      },
+    }),
+    // Confirm Email
+    confirmEmail: builder.mutation({
+      query: (otp) => {
+        return {
+          url: `auth/verify-email/`,
+          method: "POST",
+          body: { otp: otp },
+        };
+      },
+    }),
     // Login
     login: builder.mutation({
       query: (credentials) => {
@@ -12,6 +32,7 @@ const authApi = apiSlice.injectEndpoints({
         };
       },
     }),
+    // Logout
     logout: builder.mutation({
       query: (credentials) => {
         return {
@@ -30,6 +51,7 @@ const authApi = apiSlice.injectEndpoints({
         };
       },
     }),
+    // Get User Profile
     getUserProfile: builder.query({
       query: (username) => {
         return {
@@ -42,6 +64,8 @@ const authApi = apiSlice.injectEndpoints({
 });
 
 export const {
+  useRegisterMutation,
+  useConfirmEmailMutation,
   useGetAllUserProfileQuery,
   useLoginMutation,
   useLogoutMutation,

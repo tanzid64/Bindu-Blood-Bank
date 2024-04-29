@@ -7,9 +7,11 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut, selectCurrentUser } from "../redux/slices/authSlice";
-import { setToast } from "../redux/slices/toastSlice";
+import { selectCurrentMessage, setToast } from "../redux/slices/toastSlice";
+import MainToast from "./MainToast";
 
 export default function Nav() {
+  const message = useSelector(selectCurrentMessage);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector(selectCurrentUser);
@@ -68,7 +70,7 @@ export default function Nav() {
                 <Dropdown.Item
                   as={Link}
                   to="/register"
-                  onClick={() => setIsActive("login")}
+                  onClick={() => setIsActive("register")}
                 >
                   Register
                 </Dropdown.Item>
@@ -112,6 +114,11 @@ export default function Nav() {
           </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
+      {message && (
+        <div className="container mt-20">
+          <MainToast />
+        </div>
+      )}
     </>
   );
 }

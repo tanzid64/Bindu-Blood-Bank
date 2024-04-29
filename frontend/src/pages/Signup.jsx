@@ -4,15 +4,17 @@ import Name from "../components/Form/Name";
 import Gender from "../components/Form/Gender";
 import BloodGroup from "../components/Form/BloodGroup";
 import SectionTitle from "../components/SectionTitle";
-import banner from "/signup.jpg"; // Corrected the image file path
-import { Card, CardBody, Image, Button, Spinner } from "@nextui-org/react";
+import banner from "/signup.jpg";
+import { Card, CardBody, Button, Spinner } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
-import MainToast from "../components/MainToast";
+import { useRegisterMutation } from "../redux/apiSlices/authApi";
+import { useDispatch } from "react-redux";
+import { setToast } from "../redux/slices/toastSlice";
 
 const Signup = () => {
-  const [loading, setLoading] = useState();
+  const dispatch = useDispatch();
+  const [register, { isLoading }] = useRegisterMutation();
   const [formData, setFormData] = useState({
     email: "",
     username: "",
@@ -31,40 +33,38 @@ const Signup = () => {
     gender: "",
     blood_group: "",
   });
-  const [nonFieldError, setNonFieldError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setFieldError({ ...fieldError, [e.target.name]: "" });
-    setNonFieldError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      setLoading(true);
-      const res = await axios.post(
-        "https://sour-libby-thzone.koyeb.app/api/v1/auth/register/",
-        formData
-      );
-      if (res.status === 201) {
-        console.log(res);
+    const res = await register(formData);
+    console.log(res);
+    if (res?.data?.message) {
+      console.log(res.data.message);
+      dispatch(setToast({ message: `${res.data.message}`, type: "success" }));
+      navigate("/confirm/email");
+    }
+    if (res?.error?.status === 400) {
+      if (res.error.data.non_field_errors) {
+        dispatch(
+          setToast({
+            message: `${res.error.data.non_field_errors[0]}`,
+            type: "danger",
+          })
+        );
+      } else {
+        setFieldError(res.error.data);
       }
-    } catch (e) {
-      console.log(e.response.data.non_field_errors);
-      setFieldError(e.response.data);
-      if (e.response.data.non_field_errors) {
-        setNonFieldError(e.response.data.non_field_errors);
-      }
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
     <>
-      {nonFieldError && <MainToast body={nonFieldError} type="danger" />}
       <SectionTitle title="Register Here" />
       <Card
         isBlurred
@@ -135,7 +135,7 @@ const Signup = () => {
                 />
               </div>
               <Button type="submit" className="my-2">
-                {loading ? <Spinner /> : "Register"}
+                {isLoading ? <Spinner /> : "Register"}
               </Button>
             </form>
           </div>

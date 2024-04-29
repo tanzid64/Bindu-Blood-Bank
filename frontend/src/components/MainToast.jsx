@@ -13,13 +13,12 @@ import { useEffect } from "react";
 export default function MainToast() {
   const dispatch = useDispatch();
   const message = useSelector(selectCurrentMessage);
-  console.log(message);
   const type = useSelector(selectCurrentType);
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
         dispatch(removeToast()); // Dispatch action to reset message after delay
-      }, 3000); // Set the delay time in milliseconds, e.g., 3000 ms = 3 seconds
+      }, 5000); // Set the delay time in milliseconds, e.g., 3000 ms = 3 seconds
       return () => clearTimeout(timer); // Clear the timeout on component unmount or message change
     }
   }, [dispatch, message]);
