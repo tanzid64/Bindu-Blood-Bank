@@ -9,6 +9,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Documentation from "./pages/Documentation/Documentation";
 import DeveloperZone from "./pages/Documentation/DeveloperZone";
 import ServiceDetails from "./pages/home/Services/ServiceDetails";
+import Login from "./pages/Login";
+import MainToast from "./components/MainToast";
 
 const App = () => {
   return (
@@ -16,11 +18,13 @@ const App = () => {
       <div className="flex flex-col min-h-screen">
         <Nav />
         <main className="container my-20 ">
+          <MainToast />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/donors" element={<Donors />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/documentation" element={<Documentation />} />
             <Route path="/developer" element={<DeveloperZone />} />
             <Route path="/services/:slug" element={<ServiceDetails />} />
