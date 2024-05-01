@@ -18,5 +18,3 @@ class DonationReportSerializer(serializers.ModelSerializer):
   class Meta:
     model = DonationReport
     fields = ['created_at','user','event', 'event_id']
-
-        
