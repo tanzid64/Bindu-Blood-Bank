@@ -1,7 +1,7 @@
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 class UserProfilePagination(PageNumberPagination):
-    page_size = 10
+    page_size = 12
     page_query_param = "p"
     page_size_query_param = "records"
     max_page_size = 40

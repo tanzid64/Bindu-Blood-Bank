@@ -20,4 +20,4 @@ class DonationReport(TimeStampMixin):
   event = models.ForeignKey(DonationRequest, related_name="donation_report", on_delete=models.CASCADE)
 
   def __str__(self) -> str:
-    return f"{self.created_by.get_full_name()}"
+    return f"{self.user.get_full_name()}"
