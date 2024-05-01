@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../redux/slices/authSlice";
 import { useLoginMutation } from "../redux/apiSlices/authApi";
@@ -7,6 +7,7 @@ import Email from "../components/Form/Email";
 import { Button, Card, CardBody, Spinner } from "@nextui-org/react";
 import { useState } from "react";
 import { setToast } from "../redux/slices/toastSlice";
+import SectionTitle from '../components/SectionTitle';
 
 const Login = () => {
   const [login, { isLoading }] = useLoginMutation();
@@ -52,19 +53,15 @@ const Login = () => {
     }
   };
   return (
-    <div>
+    <main className="">
+      <SectionTitle title="Login Here"/>
       <Card
         isBlurred
-        className="border-none bg-background/60 dark:bg-default-100/50 w-full"
+        className="border-none bg-background/60 dark:bg-default-100/50 w-full "
         shadow="sm"
       >
         <CardBody>
-          <div className="grid grid-cols-6 md:grid-cols-12 gap-6 md:gap-4 items-center justify-center">
-            {/* <div
-              className="h-full bg-right dark:opacity-80 rounded-lg bg-cover bg-no-repeat col-span-6 md:col-span-4"
-              style={{ backgroundImage: `url(${banner})` }}
-            ></div> */}
-
+          <div className="p-10">
             <form
               action=""
               className="col-span-6 md:col-span-8"
@@ -84,10 +81,11 @@ const Login = () => {
                 {isLoading ? <Spinner /> : "Login"}
               </Button>
             </form>
+            Don't have an account? <Link to="/register" className="text-blue-500 pointer">Register Here</Link>
           </div>
         </CardBody>
       </Card>
-    </div>
+    </main>
   );
 };
 

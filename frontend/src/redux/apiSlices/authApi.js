@@ -48,14 +48,20 @@ const authApi = apiSlice.injectEndpoints({
     getAllUserProfile: builder.query({
       query: (query) => {
         return {
-          url: "auth/profile/",
+          url: `auth/profile/?p=${query.p}&is_available=${query.isAvailable}&blood_group=${query.bloodGroup}`,
           method: "GET",
         };
       },
-      providesTags: (result) =>
-        result
-          ? [...result.map(({ id }) => ({ type: "allusers", id })), "allusers"]
-          : ["allusers"],
+      providesTags: (item) => {
+        if (Array.isArray(item)) {
+          return [
+            ...item.map(({ id }) => ({ type: "allusers", id })),
+            "allusers",
+          ];
+        } else {
+          return ["allusers"];
+        }
+      },
     }),
     // Get User Profile
     getUserProfile: builder.query({

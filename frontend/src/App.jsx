@@ -12,12 +12,14 @@ import Otp from "./pages/Otp";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./pages/Layout/Root";
 import PrivateRoutes from "./pages/Layout/PrivateRoutes";
+import Error from "./pages/Error";
 
 const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Root />,
+      errorElement: <Error/>,
       children: [
         // Private Routes
         {
@@ -67,6 +69,7 @@ const App = () => {
           path: "/services/:slug",
           element: <ServiceDetails />,
         },
+        
       ],
     },
   ]);
