@@ -14,14 +14,27 @@ import Root from "./pages/Layout/Root";
 import PrivateRoutes from "./pages/Layout/PrivateRoutes";
 import Error from "./pages/Error";
 import EditProfile from "./pages/profile/EditProfile";
+import AdminRoutes from "./pages/Layout/AdminRoutes";
+import AdminHome from "./pages/AdminDashboard/AdminHome";
 
 const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Root />,
-      errorElement: <Error/>,
+      errorElement: <Error />,
       children: [
+        //Admin routes
+        {
+          path: "/",
+          element: <AdminRoutes />,
+          children: [
+            {
+              path: "/admin",
+              element: <AdminHome />,
+            },
+          ],
+        },
         // Private Routes
         {
           path: "/",
@@ -74,7 +87,6 @@ const App = () => {
           path: "/services/:slug",
           element: <ServiceDetails />,
         },
-        
       ],
     },
   ]);

@@ -47,6 +47,9 @@ export default function Nav() {
                 <Dropdown.Item as={Link} to="/dashboard">
                   Dashboard
                 </Dropdown.Item>
+                <Dropdown.Item as={Link} to="/admin">
+                  Admin Dashboard
+                </Dropdown.Item>
                 <Dropdown.Item as={Link} to={`/profile/${user.username}`}>
                   Profile
                 </Dropdown.Item>

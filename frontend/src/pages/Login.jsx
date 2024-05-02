@@ -8,7 +8,6 @@ import { Button, Card, CardBody, Spinner } from "@nextui-org/react";
 import { useState } from "react";
 import { setToast } from "../redux/slices/toastSlice";
 import SectionTitle from "../components/SectionTitle";
-import { Cookies } from "react-cookie";
 
 const Login = () => {
   const [login, { isLoading }] = useLoginMutation();
@@ -33,7 +32,6 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await login(formData).unwrap();
-      Cookies.set("access_token", res.access_token);
       dispatch(setCredentials(res));
       localStorage.setItem("refreshToken", res.refresh_token);
       setFormData({
