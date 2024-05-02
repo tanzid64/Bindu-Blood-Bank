@@ -16,27 +16,60 @@ import {
 import { Button, Spinner } from "@nextui-org/react";
 import { useUpdateUserProfileMutation } from "../../redux/apiSlices/authApi";
 import { setToast } from "../../redux/slices/toastSlice";
+import { useEffect, useState } from "react";
 const EditProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [updateProfile, { isLoading }] = useUpdateUserProfileMutation();
-  const data = useSelector(selectCurrentUser);
-
+  const [data, setData] = useState(useSelector(selectCurrentUser));
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
     const res = await updateProfile(formData);
+    console.log(res);
     if (res?.data) {
       dispatch(setCredentials({ user_details: res.data }));
       dispatch(
         setToast({ message: `Profile updated successfully.`, type: "success" })
       );
       navigate(`/profile/${data.username}`);
+    } else {
+      dispatch(
+        setToast({ message: `Profile update failed.`, type: "danger" })
+      );
     }
   };
-
+  const handleOnChange = (e) => {
+    if (e.target.name === "image") {
+      const newData = {
+        [e.target.name]: e.target.files[0],
+      };
+      setData({ ...data, ...newData });
+    } else if (e.target.name === "last_donation_date") {
+      // Extract the date part without time
+      const dateValue = e.target.value;
+      const formattedDate = dateValue.split("T")[0];
+      const newData = {
+        [e.target.name]: formattedDate,
+      };
+      setData({ ...data, ...newData });
+    } else {
+      const newData = {
+        [e.target.name]: e.target.value,
+      };
+      setData({ ...data, ...newData });
+    }
+  };
   return (
-    <form className="flex flex-col gap-6" action="" onSubmit={handleOnSubmit}>
+    <form
+      className="flex flex-col gap-6"
+      action=""
+      onSubmit={handleOnSubmit}
+      onChange={handleOnChange}
+    >
       <div className="flex flex-col md:flex-row gap-5">
         {/* UserName */}
         <div className="w-full">
@@ -160,7 +193,7 @@ const EditProfile = () => {
       {/* Address */}
       <div className="w-full">
         <div className="mb-2 block">
-          <Label htmlFor="email4" value="Last Name" />
+          <Label htmlFor="email4" value="Address" />
         </div>
         <Textarea
           id="email4"

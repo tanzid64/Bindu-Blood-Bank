@@ -7,7 +7,8 @@ import Email from "../components/Form/Email";
 import { Button, Card, CardBody, Spinner } from "@nextui-org/react";
 import { useState } from "react";
 import { setToast } from "../redux/slices/toastSlice";
-import SectionTitle from '../components/SectionTitle';
+import SectionTitle from "../components/SectionTitle";
+import { Cookies } from "react-cookie";
 
 const Login = () => {
   const [login, { isLoading }] = useLoginMutation();
@@ -32,6 +33,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await login(formData).unwrap();
+      Cookies.set("access_token", res.access_token);
       dispatch(setCredentials(res));
       localStorage.setItem("refreshToken", res.refresh_token);
       setFormData({
@@ -54,7 +56,7 @@ const Login = () => {
   };
   return (
     <main className="">
-      <SectionTitle title="Login Here"/>
+      <SectionTitle title="Login Here" />
       <Card
         isBlurred
         className="border-none bg-background/60 dark:bg-default-100/50 w-full "
@@ -81,7 +83,10 @@ const Login = () => {
                 {isLoading ? <Spinner /> : "Login"}
               </Button>
             </form>
-            Don't have an account? <Link to="/register" className="text-blue-500 pointer">Register Here</Link>
+            Don't have an account?{" "}
+            <Link to="/register" className="text-blue-500 pointer">
+              Register Here
+            </Link>
           </div>
         </CardBody>
       </Card>

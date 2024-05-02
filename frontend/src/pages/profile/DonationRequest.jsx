@@ -3,6 +3,7 @@ import { useGetDonationRequestQuery } from "../../redux/apiSlices/donationApi";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../redux/slices/authSlice";
 import SectionTitle from "../../components/SectionTitle";
+import TableSkeleton from "./TableSkeleton";
 
 const DonationRequest = () => {
   const { data, error, isLoading } = useGetDonationRequestQuery();
@@ -17,6 +18,7 @@ const DonationRequest = () => {
           <Table.HeadCell>Blood Group</Table.HeadCell>
           <Table.HeadCell>Status</Table.HeadCell>
         </Table.Head>
+        {isLoading && <TableSkeleton />}
         <Table.Body className="divide-y">
           {data?.map(
             (item, index) =>
@@ -32,7 +34,6 @@ const DonationRequest = () => {
                   <Table.Cell>
                     {item.is_accepted ? "Accepted" : "Not Accepted"}
                   </Table.Cell>
-                  
                 </Table.Row>
               )
           )}

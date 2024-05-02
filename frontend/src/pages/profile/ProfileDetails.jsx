@@ -7,7 +7,7 @@ const ProfileDetails = ({ user }) => {
   return (
     <main className="md:grid grid-cols-5 md:grid-cols-6 gap-4">
       {/* Profile Details */}
-      <div className="p-8 max-w-full border border-indigo-300 rounded-2xl hover:shadow-md hover:shadow-indigo-50 md:col-span-2 lg:col-span-1">
+      <div className="p-8 max-w-full border border-indigo-300 rounded-2xl hover:shadow-md hover:shadow-indigo-50 md:col-span-2 lg:col-span-2">
         {/* Profile Photo */}
         <figure className="max-w-lg">
           <Avatar
