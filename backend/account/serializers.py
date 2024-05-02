@@ -30,9 +30,10 @@ class VerifyEmailSerializer(serializers.Serializer):
     
 class UserSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required = False)
+    is_staff = serializers.BooleanField(read_only=True)
     class Meta:
         model=User
-        fields = ['username','email', 'first_name', 'last_name', 'blood_group', 'image', 'phone', 'gender', 'address', 'last_donation_date', 'total_donated', 'is_available']
+        fields = ['username','email', 'first_name', 'last_name', 'blood_group', 'image', 'phone', 'gender', 'address', 'last_donation_date', 'total_donated', 'is_available', 'is_staff']
 
 class UserLoginSerializer(serializers.ModelSerializer):
     user_details = UserSerializer(many=False, read_only=True)
