@@ -29,6 +29,7 @@ class VerifyEmailSerializer(serializers.Serializer):
     otp = serializers.CharField(max_length=8)
     
 class UserSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(required = False)
     class Meta:
         model=User
         fields = ['username','email', 'first_name', 'last_name', 'blood_group', 'image', 'phone', 'gender', 'address', 'last_donation_date', 'total_donated', 'is_available']

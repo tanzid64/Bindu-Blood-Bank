@@ -7,6 +7,7 @@ from account.utils import generate_otp, send_template_email, delete_instance_aft
 from rest_framework.exceptions import MethodNotAllowed
 from account.serializers import UserRegistrationSerializer, UserSerializer,SendOtpSerializer,UserLoginSerializer, LogoutUserSerializer, VerifyEmailSerializer
 from account.paginations import UserProfilePagination
+from rest_framework.parsers import MultiPartParser, FormParser
 # Create your views here.
 class UserRegistrationView(generics.CreateAPIView):
     serializer_class = UserRegistrationSerializer
@@ -91,6 +92,7 @@ class VerifyEmailView(generics.GenericAPIView):
         
 class UserProfileViewSet(viewsets.ModelViewSet):
     permission_classes=[permissions.AllowAny,]
+    parser_classes = (MultiPartParser, FormParser,)
     pagination_class = UserProfilePagination
     queryset = User.objects.all()
     serializer_class = UserSerializer

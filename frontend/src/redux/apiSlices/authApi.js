@@ -73,11 +73,16 @@ const authApi = apiSlice.injectEndpoints({
       },
     }),
     updateUserProfile: builder.mutation({
-      query: (data) => {
+      query: (formData) => {
+        console.log();
         return {
-          url: `auth/profile/${data.username}/`,
+          url: `auth/profile/${formData.get("username")}/`,
           method: "PATCH",
-          body: data,
+          body: formData,
+          prepareHeaders: (headers) => {
+            headers.set("Content-Type", "multipart/form-data");
+            return headers;
+          },
         };
       },
     }),
