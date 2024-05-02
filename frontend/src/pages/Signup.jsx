@@ -45,7 +45,7 @@ const Signup = () => {
     const res = await register(formData);
     if (res?.data?.message) {
       dispatch(setToast({ message: `${res.data.message}`, type: "success" }));
-      // navigate("/confirm/email");
+      navigate("/confirm/email");
     }
     if (res?.error?.status === 400) {
       if (res.error.data.non_field_errors) {
