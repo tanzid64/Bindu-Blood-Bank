@@ -72,6 +72,15 @@ const authApi = apiSlice.injectEndpoints({
         };
       },
     }),
+    updateUserProfile: builder.mutation({
+      query: (data) => {
+        return {
+          url: `auth/profile/${data.username}/`,
+          method: "PATCH",
+          body: data,
+        };
+      },
+    }),
   }),
 });
 
@@ -82,4 +91,5 @@ export const {
   useLoginMutation,
   useLogoutMutation,
   useGetUserProfileQuery,
+  useUpdateUserProfileMutation,
 } = authApi;

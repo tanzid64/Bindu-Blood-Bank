@@ -2,6 +2,7 @@ import { Table } from "flowbite-react";
 import { useGetDonationRequestQuery } from "../../redux/apiSlices/donationApi";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../redux/slices/authSlice";
+import SectionTitle from "../../components/SectionTitle";
 
 const DonationRequest = () => {
   const { data, error, isLoading } = useGetDonationRequestQuery();
@@ -9,6 +10,7 @@ const DonationRequest = () => {
 
   return (
     <div className="overflow-x-auto">
+      <SectionTitle title="My Requests" />
       <Table>
         <Table.Head>
           <Table.HeadCell>Date</Table.HeadCell>

@@ -1,12 +1,13 @@
 import { Table } from "flowbite-react";
 import { useGetDonationReportQuery } from "../../redux/apiSlices/donationApi";
 import { Spinner } from "@nextui-org/spinner";
+import SectionTitle from "../../components/SectionTitle";
 
 const DonationReport = () => {
   const { data, isLoading, errors } = useGetDonationReportQuery();
-  console.log(data);
   return (
     <div className="overflow-x-auto mt-5">
+      <SectionTitle title="My Donation"/>
       <Table>
         <Table.Head>
           <Table.HeadCell>Date</Table.HeadCell>

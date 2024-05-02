@@ -3,16 +3,13 @@ import ModeToggle from "./ui/mode-toggle";
 import logo from "/logo.png";
 import { Dropdown, Navbar } from "flowbite-react";
 import { Avatar } from "@nextui-org/react";
-import { useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut, selectCurrentUser } from "../redux/slices/authSlice";
-import { selectCurrentMessage, setToast } from "../redux/slices/toastSlice";
-import MainToast from "./MainToast";
+import { setToast } from "../redux/slices/toastSlice";
 
 export default function Nav() {
   const location = useLocation();
-  const message = useSelector(selectCurrentMessage);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector(selectCurrentUser);
@@ -47,17 +44,26 @@ export default function Nav() {
                     {user.email}
                   </span>
                 </Dropdown.Header>
-                <Dropdown.Item>Dashboard</Dropdown.Item>
+                <Dropdown.Item as={Link} to="/dashboard">
+                  Dashboard
+                </Dropdown.Item>
                 <Dropdown.Item as={Link} to={`/profile/${user.username}`}>
                   Profile
+                </Dropdown.Item>
+                <Dropdown.Item as={Link} to={`/profile/setting/${user.username}`}>
+                  Setting
                 </Dropdown.Item>
                 <Dropdown.Divider />
                 <Dropdown.Item onClick={handleLogout}>Log out</Dropdown.Item>
               </>
             ) : (
               <>
-                <Dropdown.Item as={Link}>Login</Dropdown.Item>
-                <Dropdown.Item as={Link}>Register</Dropdown.Item>
+                <Dropdown.Item as={Link} to="/login">
+                  Login
+                </Dropdown.Item>
+                <Dropdown.Item as={Link} to="/register">
+                  Register
+                </Dropdown.Item>
               </>
             )}
           </Dropdown>
@@ -90,11 +96,6 @@ export default function Nav() {
           </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
-      {message && (
-        <div className="container mt-20">
-          <MainToast />
-        </div>
-      )}
     </>
   );
 }

@@ -4,8 +4,11 @@ import BloodGroup from "../../components/Form/BloodGroup";
 import Name from "../../components/Form/Name";
 import { usePostDonationRequestMutation } from "../../redux/apiSlices/donationApi";
 import { Spinner } from "@nextui-org/spinner";
+import { useDispatch } from "react-redux";
+import { setToast } from "../../redux/slices/toastSlice";
 
 const AddRequest = () => {
+  const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [addRequest, { isLoading }] = usePostDonationRequestMutation();
   const [formData, setFormData] = useState({
@@ -19,6 +22,7 @@ const AddRequest = () => {
     setOpenModal(false);
     const res = await addRequest(formData);
     if (res.data) {
+      dispatch(setToast({ message: `A request posted successfully.`, type: "success" }));
     }
   };
 

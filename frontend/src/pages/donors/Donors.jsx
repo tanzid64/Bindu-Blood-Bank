@@ -35,8 +35,7 @@ const Donors = () => {
     <div className="mb-5">
       <SectionTitle title="All Donors" />
       {/* Filtering Options */}
-
-      <div className="w-full border p-5 rounded-xl border-indigo-500 mb-5">
+      <div className="w-full border p-5 rounded-xl border-indigo-500 mb-5 flex gap-5 flex-col md:flex-row items-center ">
         {/* By Availability */}
         <div className="">
           <Label htmlFor="bloodGroup" value="Available for Donation" />
@@ -68,8 +67,8 @@ const Donors = () => {
             <option value="AB-">AB-</option>
           </Select>
         </div>
-        {/* Loading State */}
       </div>
+      {/* Loading State */}
 
       {isLoading | isFetching ? (
         <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 gap-3">

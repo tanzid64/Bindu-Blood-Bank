@@ -44,7 +44,6 @@ const Signup = () => {
     e.preventDefault();
     const res = await register(formData);
     if (res?.data?.message) {
-      console.log(res.data.message);
       dispatch(setToast({ message: `${res.data.message}`, type: "success" }));
       // navigate("/confirm/email");
     }
