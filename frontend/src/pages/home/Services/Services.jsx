@@ -27,7 +27,7 @@ const Services = () => {
               {data?.map((service, index) => (
                 <CarouselItem
                   key={index}
-                  className="pl-1 md:basis-1/2 lg:basis-1/3"
+                  className="pl-1 md:basis-1/2 lg:basis-1/3 md:mr-7"
                 >
                   <div className="">
                     <ServiceItem key={index} service={service} />
