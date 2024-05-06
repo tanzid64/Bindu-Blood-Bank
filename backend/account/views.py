@@ -101,8 +101,6 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     filterset_fields = ['is_available', 'blood_group']
     filter_backends = [DjangoFilterBackend, SearchFilter]
     search_fields = ['username', 'email']
-    def create(self, request, *args, **kwargs):
-        raise MethodNotAllowed("POST")
     
 class LoginUserView(generics.GenericAPIView):
     serializer_class = UserLoginSerializer

@@ -29,7 +29,7 @@ class VerifyEmailSerializer(serializers.Serializer):
     otp = serializers.CharField(max_length=8)
     
 class UserSerializer(serializers.ModelSerializer):
-    image = serializers.ImageField(required = False)
+    image = serializers.ImageField(required=False)
     is_staff = serializers.BooleanField(read_only=True)
     class Meta:
         model=User
@@ -45,6 +45,8 @@ class UserLoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['email', 'password', 'user_details', 'access_token', 'refresh_token']
+
+    
 
     def validate(self, attrs):
         email = attrs.get('email')
