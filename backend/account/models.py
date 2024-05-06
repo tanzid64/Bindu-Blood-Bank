@@ -24,6 +24,7 @@ class User(TimeStampMixin, AbstractUser):
     blood_group = models.CharField(choices=BLOOD_TYPE)
     total_donated = models.IntegerField(default=0)
     is_available = models.BooleanField(default=True)
+    last_donation_date = models.DateField(blank=True, null=True, default=None)
     
     objects = UserManager()
     USERNAME_FIELD = 'email'
