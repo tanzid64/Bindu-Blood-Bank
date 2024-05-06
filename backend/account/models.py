@@ -34,7 +34,7 @@ class User(TimeStampMixin, AbstractUser):
         return f"{self.username}"
     def save(self, *args, **kwargs):
         if self.last_donation_date is None or \
-                (timezone.now() - self.last_donation_date) > timedelta(days=3 * 30):
+                (timezone.make_aware(datetime.combine(self.last_donation_date, datetime.min.time())) - timezone.now()) > timedelta(days=3 * 30):
             self.is_available = True
         if self.image:
             self.image = self.compressImage(self.image)
