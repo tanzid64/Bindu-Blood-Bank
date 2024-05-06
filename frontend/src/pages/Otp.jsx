@@ -21,7 +21,7 @@ const Otp = () => {
     if (res?.data?.message) {
       console.log(res.data.message);
       dispatch(setToast({ message: `${res.data.message}`, type: "success" }));
-      Navigate("/login");
+      navigate("/login");
     } else if (res?.error.data) {
       dispatch(setToast({ message: res.error.data.error, type: "danger" }));
     }
