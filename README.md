@@ -20,8 +20,10 @@ Server: Django REST Framework, Cloudinary, Supabase PostgreSQL
 
 # Live demo
 Client: https://bindu-blood-bank.vercel.app/
+<br/>
 Server: https://sour-libby-thzone.koyeb.app/
 
 # Documentations
 Client: https://github.com/tanzid64/Bindu-Blood-Bank/blob/main/frontend/README.md
+<br/>
 Server: https://github.com/tanzid64/Bindu-Blood-Bank/blob/main/backend/README.md
