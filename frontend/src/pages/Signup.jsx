@@ -43,6 +43,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await register(formData);
+    console.log(res);
     if (res?.data?.message) {
       dispatch(setToast({ message: `${res.data.message}`, type: "success" }));
       navigate("/confirm/email");
@@ -135,7 +136,12 @@ const Signup = () => {
               <Button type="submit" className="my-2">
                 {isLoading ? <Spinner /> : "Register"}
               </Button>
-              <p className="block">Already have an account? <Link to="/login" className="text-blue-500 pointer">Login here</Link></p>
+              <p className="block">
+                Already have an account?{" "}
+                <Link to="/login" className="text-blue-500 pointer">
+                  Login here
+                </Link>
+              </p>
             </form>
           </div>
         </CardBody>
