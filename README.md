@@ -1,6 +1,4 @@
----
-title: Bindu Blood Bank
----
+
 ![](/.swm/images/Screenshot%20from%202024-05-03%2002-12-27-2024-4-2-20-12-45-960.png)
 
 # Bindu Blood Bank
