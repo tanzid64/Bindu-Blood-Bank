@@ -29,7 +29,6 @@ class User(TimeStampMixin, AbstractUser):
     objects = UserManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ('username',)
-
     def __str__(self) -> str:
         return f"{self.username}"
     def save(self, *args, **kwargs):
