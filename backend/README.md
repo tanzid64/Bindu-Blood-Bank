@@ -22,6 +22,7 @@ The first thing to do is to clone the repository:
   cd Bindu-Blood-Bank/backend/
 ```
 Create a virtual environment to install dependencies in and activate it:
+<br/>
 For windows:
 ```bash
   python -m venv .venv
